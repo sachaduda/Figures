@@ -1,17 +1,26 @@
-#ifndef _BASE_TYPES_HPP
-#define _BASE_TYPES_HPP
+#ifndef BASE_TYPES_HPP
+#define BASE_TYPES_HPP
 
-struct point_t
+namespace grechin
 {
-  double x;
-  double y;
-};
+  struct point_t
+  {
+    double x;
+    double y;
+  };
 
-struct rectangle_t
+  struct rectangle_t
+  {
+    double width;
+    double height;
+    point_t pos;
+  };
+}
+
+namespace addition
 {
-  double width;
-  double height;
-  point_t pos;
-};
+  void revolve(grechin::point_t&, const grechin::point_t&, const double);
+  bool isOverlapped(const grechin::rectangle_t&, const grechin::rectangle_t&);
+}
 
-#endif  
+#endif 

@@ -3,32 +3,63 @@
 #define _USE_MATH_DEFINES
 
 #include <cmath>
-#include <cassert>
+#include <stdexcept>
+#include "base-types.hpp"
 
-Circle::Circle(const double radius, const point_t& center):
+grechin::Circle::Circle(const double radius, const point_t& center):
   radius_(radius),
   center_(center)
 {
-  assert(radius_ > 0);
+  if (radius_ <= 0)
+  {
+    throw std::invalid_argument("Radius must be > 0");
+  }
 }
 
-double Circle::getArea() const
+double grechin::Circle::getArea() const
 {
   return M_PI * radius_ * radius_;
 }
 
-rectangle_t Circle::getFrameRect() const
+double grechin::Circle::getRadius() const
+{
+  return radius_;
+}
+
+grechin::rectangle_t grechin::Circle::getFrameRect() const
 {
   return rectangle_t{ 2 * radius_, 2 * radius_, center_ };
 }
 
-void Circle::move(const point_t& movePoint)
+void grechin::Circle::move(const point_t& movePoint)
 {
   center_ = movePoint;
 }
 
-void Circle::move(const double dx, const double dy)
+void grechin::Circle::move(const double xMove, const double yMove)
 {
-  center_.x += dx;
-  center_.y += dy;
-}  
+  center_.x += xMove;
+  center_.y += yMove;
+}
+
+void grechin::Circle::scale(const double coefficient)
+{
+  if (coefficient <= 0)
+  {
+    throw std::invalid_argument("Coefficient must be > 0");
+  }
+  radius_ *= coefficient;
+}
+
+void grechin::Circle::rotate(const double)
+{
+}
+
+void grechin::Circle::setRadius(const double radius)
+{
+  if (radius <= 0)
+  {
+    throw std::invalid_argument("Radius must be > 0");
+  }
+  radius_ = radius;
+}
